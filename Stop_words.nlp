@@ -1,27 +1,37 @@
 import spacy
-from spacy.lang.en.stop_words import STOP_WORDS  # Import the predefined list of stop words from SpaCy
+from spacy.lang.en.stop_words import STOP_WORDS  -------------------# Import the predefined list of stop words from SpaCy
 
-# Load the English SpaCy model with its pre-built NLP pipeline
-nlp = spacy.load("en_core_web_sm")  # This pipeline includes tokenization, part-of-speech tagging, etc.
+----------------# Load the English SpaCy model with its pre-built NLP pipeline
+nlp = spacy.load("en_core_web_sm")--------------------  # This pipeline includes tokenization, part-of-speech tagging, etc.
 
-# Create a document using the SpaCy pipeline
+--------------------# Create a document using the SpaCy pipeline
 doc = nlp("we just opened our shop, the selling part is coming soon")
 
-# Iterate through tokens (words) in the document
-for word in doc:  # Loop to check if each word in the document is a stop word
-    if word.is_stop:  # If the word is a stop word, print it with an asterisk for distinction
+----------------# Iterate through tokens (words) in the document
+for word in doc: -------------------- # Loop to check if each word in the document is a stop word
+    if word.is_stop: ------------------ # If the word is a stop word, print it with an asterisk for distinction
         print(word, "*")
 
-# Define a function to preprocess text by removing stop words and punctuation
+------------------------# Define a function to preprocess text by removing stop words and punctuation
 def preprocessing(text):
-    # Create a SpaCy document for the input text
+    -------------------# Create a SpaCy document for the input text
     doc = nlp(text)
     
-    # List comprehension to filter out stop words and punctuation
+   ----------------- # List comprehension to filter out stop words and punctuation
+
+
+
+
     no_stop_words = [
-        token.text  # Extract the text of the token
-        for token in doc  # Iterate through all tokens in the document
-        if not token.is_stop and not token.is_punct  # Exclude stop words and punctuation
+        token.text ------------------ # Extract the text of the token
+        for token in doc  ----------------# Iterate through all tokens in the document
+        if not token.is_stop and not token.is_punct  ---------------# Exclude stop words and punctuation
     ]
     
     return no_stop_words  # Return the processed list of words
+
+
+Example Usage --------------------
+text = "This is an example sentence to demonstrate text preprocessing."
+print(preprocessing(text))
+-------------------# Output: ['example', 'sentence', 'demonstrate', 'text', 'preprocessing']
