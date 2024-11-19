@@ -75,3 +75,20 @@ def preprocess(text):
 
 for i in range(0,len(corpus),1):
     print(preprocess(corpus[i]))
+
+    # both above and below line will give same output below one is list compreghension
+
+corpus_processed = [preprocess(text) for text in corpus]
+corpus_processed # type = list
+
+#now that we have process text we are going to use count vectorizer
+v = CountVectorizer(ngram_range = (1,2))
+v.fit(corpus_processed) # fit required list as an argument
+v.vocabulary_ # type dict 
+# where 'thor' is value and 6 is like a key
+
+v.transform(["thor eat pizza"]).toarray() #we converted text into vector then we 
+converted then we converted that vector to an array
+
+v.transform(["hulk eat pizza"]).toarray() # if the words are not in vocabulary then  we will face OOV Error 
+# (out-of-vocabulary)
