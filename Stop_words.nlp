@@ -29,6 +29,7 @@ def preprocessing(text):
     ]
     
     return no_stop_words  # Return the processed list of words
+    return " ".join(no_stop_words) # to get a string out of seperate words by joining them
 
 
 Example Usage --------------------
