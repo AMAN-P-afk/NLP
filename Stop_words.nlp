@@ -36,3 +36,42 @@ Example Usage --------------------
 text = "This is an example sentence to demonstrate text preprocessing."
 print(preprocessing(text))
 -------------------# Output: ['example', 'sentence', 'demonstrate', 'text', 'preprocessing']
+
+
+
+########################################################################
+Removing stop words and lemmatizing words 
+
+
+from sklearn.feature_extraction.text import CountVectorizer
+v = CountVectorizer(ngram_range=(1, 3)) # if we write (1 ,1) then it will generate words of length 1 and if we write (1 ,2) then it will generate 
+# words of length from 1 to 2 we have words of length 2 only if we gave (2 ,2) as argument
+v.fit(["thor is looking for a job"])
+v.vocabulary_
+
+corpus = [
+    "thor ate pizza",  # Missing comma added here
+    "thor is tall",
+    "loki ate pizza"
+]
+
+import spacy
+nlp = spacy.load("en_core_web_sm")  # Load SpaCy pipeline
+
+# Define the preprocess function to clean and lemmatize the input text
+def preprocess(text):
+    doc = nlp(text)  # Create a SpaCy doc from the input text
+    filtered_words = []  # Initialize an empty list for filtered words
+    
+    for token in doc:  # Iterate over each token in the text
+        # Skip tokens that are stop words or punctuation
+        if token.is_stop or token.is_punct:
+            continue
+        # Add lemmatized form of the token to the list
+        filtered_words.append(token.lemma_)
+    
+    # Return the processed text as a single string
+    return " ".join(filtered_words)
+
+for i in range(0,len(corpus),1):
+    print(preprocess(corpus[i]))
